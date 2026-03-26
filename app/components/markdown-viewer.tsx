@@ -204,12 +204,6 @@ function BodyWithCheckpoints({
               sub.stepId ? (stepStartMap.get(sub.stepId) ?? 0) : 0
             }
           />
-          {sub.stepId && (
-            <CheckpointButton
-              stepId={`${dayId}:${sub.stepId}`}
-              seatNumber={seatNumber}
-            />
-          )}
         </div>
       ))}
     </>

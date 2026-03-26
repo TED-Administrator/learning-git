@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { LECTURER_SEAT } from "./seat-number-modal";
 
 interface Props {
   commandId: string;
@@ -19,6 +20,7 @@ export default function CommandStatusButtons({
   const [loading, setLoading] = useState(false);
 
   const label = `#${globalNumber}`;
+  const isLecturer = seatNumber === LECTURER_SEAT;
 
   async function report(newStatus: "ok" | "error") {
     if (loading) return;
@@ -35,24 +37,43 @@ export default function CommandStatusButtons({
     }
   }
 
+  // Lecturer: simple checkpoint button
+  if (isLecturer) {
+    if (status === "ok") {
+      return (
+        <div className="mb-4 flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+          <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">{label}</span>
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          チェック済み
+        </div>
+      );
+    }
+    return (
+      <div className="mb-4 flex items-center gap-2">
+        <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">{label}</span>
+        <button
+          onClick={() => report("ok")}
+          disabled={loading}
+          className="flex items-center gap-1 rounded-md border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 transition hover:bg-blue-100 disabled:opacity-50 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-400"
+        >
+          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {loading ? "送信中..." : "チェックポイント"}
+        </button>
+      </div>
+    );
+  }
+
+  // Trainee: OK / Error buttons
   if (status === "ok") {
     return (
       <div className="mb-4 flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
-        <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">
-          {label}
-        </span>
-        <svg
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M5 13l4 4L19 7"
-          />
+        <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">{label}</span>
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
         OK
       </div>
@@ -62,22 +83,10 @@ export default function CommandStatusButtons({
   if (status === "error") {
     return (
       <div className="mb-4 flex items-center gap-2 text-sm">
-        <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">
-          {label}
-        </span>
+        <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">{label}</span>
         <span className="flex items-center gap-1 text-red-600 dark:text-red-400">
-          <svg
-            className="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"
-            />
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z" />
           </svg>
           エラーを報告しました
         </span>
@@ -93,26 +102,14 @@ export default function CommandStatusButtons({
 
   return (
     <div className="mb-4 flex items-center gap-2">
-      <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">
-        {label}
-      </span>
+      <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">{label}</span>
       <button
         onClick={() => report("ok")}
         disabled={loading}
         className="flex items-center gap-1 rounded-md border border-green-200 bg-green-50 px-3 py-1 text-xs font-medium text-green-700 transition hover:bg-green-100 disabled:opacity-50 dark:border-green-900 dark:bg-green-950/40 dark:text-green-400"
       >
-        <svg
-          className="h-3.5 w-3.5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M5 13l4 4L19 7"
-          />
+        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
         OK
       </button>
@@ -121,18 +118,8 @@ export default function CommandStatusButtons({
         disabled={loading}
         className="flex items-center gap-1 rounded-md border border-red-200 bg-red-50 px-3 py-1 text-xs font-medium text-red-700 transition hover:bg-red-100 disabled:opacity-50 dark:border-red-900 dark:bg-red-950/40 dark:text-red-400"
       >
-        <svg
-          className="h-3.5 w-3.5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
+        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
         エラーが出た
       </button>

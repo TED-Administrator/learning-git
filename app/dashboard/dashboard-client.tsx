@@ -90,13 +90,6 @@ export default function DashboardClient() {
           title: `${step.title} — コマンド #${globalCmdNum}`,
         });
       }
-      columns.push({
-        type: "checkpoint",
-        label: "✓",
-        fullId: `${dayId}:${step.id}`,
-        stepId: step.id,
-        title: step.title,
-      });
     }
   }
 

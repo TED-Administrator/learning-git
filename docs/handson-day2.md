@@ -331,7 +331,9 @@ git log --oneline
 git push
 ```
 
+```
 ブラウザでGitHubを確認してみましょう。最新の内容が反映されていますか？
+```
 
 ---
 
@@ -390,14 +392,16 @@ git push -u origin add-message
 
 ### 4-5. GitHubでPull Requestを作る
 
+```
 1. ブラウザでGitHubのリポジトリページを開きます
 2. 黄色いバナーで「Compare & pull request」ボタンが表示されていたら、それをクリックします
    - 表示されない場合は「Pull requests」タブ → 「New pull request」をクリックします
-   - `base: main` ← `compare: add-message` になっていることを確認します
+   - base: main ← compare: add-message になっていることを確認します
 3. 以下を入力します
-   - Title: `同期へのメッセージを追加`
+   - Title: 同期へのメッセージを追加
    - コメント欄: 自由に書いてOKです（例：「同期へのメッセージを追加しました。」）
 4. 「Create pull request」をクリックします
+```
 
 > **Pull Requestとは？**
 > 「このブランチの変更をmainに取り込んでください」というお願いのことです。
@@ -412,15 +416,19 @@ git push -u origin add-message
 
 PRのページで以下を確認してみましょう。
 
-- 「Files changed」タブをクリックすると、変更内容が見られます
-- 追加した行が緑色で表示されていることを確認してください
-- これが「レビュー」で確認する画面です
+```
+1. 「Files changed」タブをクリックすると、変更内容が見られます
+2. 追加した行が緑色で表示されていることを確認してください
+3. これが「レビュー」で確認する画面です
+```
 
 ### 4-7. マージする
 
+```
 1. PRのページに戻ります（「Conversation」タブ）
 2. 「Merge pull request」ボタンをクリックします
 3. 「Confirm merge」をクリックします
+```
 
 「Pull request successfully merged and closed」と表示されればOKです。
 
@@ -717,11 +725,12 @@ git log --oneline
 
 ### 6-3. GitHubで見る
 
+```
 ブラウザでGitHubのリポジトリを開いて、以下を確認してみましょう。
-
-- `profile.txt` の中身
+- profile.txt の中身
 - コミット履歴（「commits」の数字をクリック）
 - 閉じたPull Request（「Pull requests」タブ → 「Closed」）
+```
 
 ---
 
